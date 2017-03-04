@@ -1,0 +1,23 @@
+{
+  "name": "schedule-creator",
+  "version": "1.0.0",
+  "description": "this web-application creates schedules online",
+  "main": "back-end/app.js",
+  "author": "Anastasia,  email: anastasiameoww@gmail.com",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "jade": "^1.11.0"
+  },
+  "engine": "node 0.6.9",
+  "devDependencies": {
+    "connect-mongo": "^1.3.2",
+    "mongoose": "^4.7.4"
+  },
+  "scripts": {
+    "install": "npm install",
+    "start": "node ./back-end/app.js"
+  }
+}

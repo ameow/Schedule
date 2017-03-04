@@ -1,0 +1,8 @@
+# IntelliJ project files
+.idea/*
+
+# Dependency directories
+node_modules/
+bower_components/
+
+excel/
