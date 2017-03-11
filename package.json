@@ -9,7 +9,8 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
-    "jade": "^1.11.0"
+    "jade": "^1.11.0",
+    "multer": "^1.3.0"
   },
   "engine": "node 0.6.9",
   "devDependencies": {
@@ -17,7 +18,7 @@
     "mongoose": "^4.7.4"
   },
   "scripts": {
-    "install": "npm install",
+    "postinstall": "bower install",
     "start": "node ./back-end/app.js"
   }
 }
