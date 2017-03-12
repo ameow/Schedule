@@ -7,7 +7,8 @@ let express = require('express'),
     session = require('express-session'),
     mongoose = require('mongoose'),
     SessionStore = require('connect-mongo')(session),
-    checkAuthentication = require('./routes/middleware/checkAuthentication');
+    checkAuthentication = require('./routes/middleware/checkAuthentication'),
+    upload = require('./routes/middleware/upload');
 
 let login = require('./routes/login');
 let signUp = require('./routes/sign-up');
@@ -24,9 +25,6 @@ app.use('/bower_components', express.static(path.resolve(__dirname, '../bower_co
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use('/login', login);
-app.use('/sign-up', signUp);
-
 app.use(session({
         secret: 'ThisIsScheduleCreator',
         key: 'sid',
@@ -39,34 +37,28 @@ app.use(session({
     }
 ));
 
+app.use('/login', login);
+app.use('/sign-up', signUp);
+
 app.use('/main', checkAuthentication, function(req, res, next){
     req.session.numberOfVisits = req.session.numberOfVisits + 1 || 1;
     res.send('Visits: ' + req.session.numberOfVisits);
 });
 
-// catch 404 and forward to error handler
+app.post('/file', upload.single('file'),  function (req, res, next) {
+    console.log('req body: ', req.body);
+    console.log('req file: ', req.file);
+    res.sendStatus(202);
+});
+
 app.use(function (req, res, next) {
     let err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
-// development error handler
-// will print stacktrace
-// if (app.get('env') === 'development') {
-//     app.use(function(err, req, res, next) {
-//         res.status(err.status || 500);
-//         res.render('error', {
-//             message: err.message,
-//             error: err
-//         });
-//     });
-// }
-
-// production error handler
-// no stacktraces leaked to user
 app.use(function (err, req, res, next) {
-    //console.log(err);
+    console.log(err.message + '    ' + err.status);
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,

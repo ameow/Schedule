@@ -11,12 +11,17 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-    let username = req.body.username;
+    let username = req.body.email;
     let password = req.body.password;
 
     user.authentication(username, password)
-        .then(result => res.sendStatus(result ? 200 : 403),
+        .then(
+            userId => {
+                req.session.user = userId;
+                res.sendStatus(userId ? 200 : 403);
+            },
             error => next(error));
 });
+
 
 module.exports = router;
