@@ -2,34 +2,24 @@
 
 (function () {
     var injections = [
-        '$scope',
-        'LoginService'
+        '$scope'
     ];
 
-    function LoginController($scope, LoginService) {
+    function LoginController($scope) {
+        
 
         $scope.user = {};
 
         $scope.login = function () {
-            LoginService.login($scope.user.email, $scope.user.password).then(function (data) {
-                localStorage.setItem('email', $scope.user.email);
-                location.href='/main';
-            });
-        };
-
-        $scope.signUp = function () {
-            for (var i = 0; i < 10; i++) {
-                setTimeout(function () {
-                    console.log(i);
-                }, 0);
-            }
-            // location.href='/sign-up';
+            // LoginService.login($scope.user).then(function (data) {
+            //
+            // });
         };
 
     }
 
     LoginController.$inject = injections;
 
-    angular.module('login')
-        .controller('LoginCtrl', LoginController);
+    angular.module('app')
+        .controller('LoginController', LoginController);
 })();

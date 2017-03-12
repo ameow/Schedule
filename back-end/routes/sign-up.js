@@ -6,11 +6,11 @@ let path = require('path');
 let user = require('../controllers/user');
 
 router.get('/', function (req, res, next) {
-    res.sendFile(path.resolve(__dirname, '../../front-end/sign-up/sign-up.html'));
+    res.sendFile(path.resolve(__dirname, '../../front-end/index.html'));
 });
 
 router.post('/', function (req, res, next) {
-    let username = req.body.username;
+    let username = req.body.email;
     let password = req.body.password;
 
     user.save(username, password)

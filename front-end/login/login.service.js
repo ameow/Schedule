@@ -19,7 +19,7 @@
     
     LoginService.$inject = injections;
 
-    angular.module('login')
+    angular.module('app')
         .service('LoginService', LoginService);
 })();
 
