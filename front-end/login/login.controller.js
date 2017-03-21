@@ -2,15 +2,16 @@
 
 (function () {
     var injections = [
-        '$scope'
+        '$scope',
+        'LoginService'
     ];
 
-    function LoginController($scope) {
-        
+    function LoginController($scope, LoginService) {
 
         $scope.user = {};
 
         $scope.login = function () {
+            console.log($scope.user);
             // LoginService.login($scope.user).then(function (data) {
             //
             // });

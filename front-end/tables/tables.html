@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="offset-l3 col s12 l6">
+        <ul class="collapsible popout" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header"><i class="fa fa-users fa-1x"
+                                                   aria-hidden="true"></i>Groups</div>
+                <div class="collapsible-body">
+                    <table class="bordered centered responsive-table">
+                        <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Specialty</th>
+                            <th>Group</th>
+                            <th>Students number</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="obj in modalData">
+                            <td>
+                                {{obj.course}}
+                            </td>
+                            <td>
+                                {{obj.specialty}}
+                            </td>
+                            <td>
+                                {{obj.group}}
+                            </td>
+                            <td>
+                                {{obj.students}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">place</i>Groups</div>
+                <div class="collapsible-body"><span>Text.</span></div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">whatshot</i>Groups</div>
+                <div class="collapsible-body"><span>Table.</span></div>
+            </li>
+        </ul>
+    </div>
+</div>

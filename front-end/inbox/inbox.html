@@ -1,8 +1,60 @@
-<table border="1" cellpadding="5" >
-    <tr>
-        <th>Inbox</th>
-    </tr>
-    <tr ng-repeat="obj in data">
-        <td>From: {{obj.sender}} Theme: {{obj.theme}} <button>Download</button></td>
-    </tr>
-</table>
+<div class="row">
+    <div class="offset-l3 col s12 l6">
+        <table class="bordered centered responsive-table">
+            <thead>
+            <tr>
+                <th>Inbox</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="obj in data">
+                <td>
+                    {{obj.theme}}
+                    <button class="btn-floating btn waves-effect waves-light green" ng-click="dataDecision(obj.id, true)"><i class="material-icons">done</i></button>
+                    <button class="btn-floating btn waves-effect waves-light red" ng-click="dataDecision(obj.id, false)"><i class="material-icons">clear</i></button>
+                    <button class="btn-floating btn waves-effect waves-light yellow" data-target='viewModal' modal ng-click="viewTable(obj)"><i class="material-icons">visibility</i>
+                    </button>
+                    <button class="btn-floating btn waves-effect waves-light blue"><i class="material-icons">file_download</i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="viewModal" class="modal">
+    <div class="modal-content">
+        <h4>{{currectItem}}</h4>
+        <table class="bordered centered responsive-table">
+            <thead>
+            <tr>
+                <th>Course</th>
+                <th>Specialty</th>
+                <th>Group</th>
+                <th>Students number</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="obj in modalData">
+                <td>
+                    {{obj.course}}
+                </td>
+                <td>
+                    {{obj.specialty}}
+                </td>
+                <td>
+                    {{obj.group}}
+                </td>
+                <td>
+                    {{obj.students}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+    </div>
+</div>

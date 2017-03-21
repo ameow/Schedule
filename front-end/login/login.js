@@ -11,14 +11,7 @@
         //'$stateProvider'
     ];
 
-    // function config($stateProvider) {
-    //     $stateProvider
-    //         .state('login', {
-    //             url: '/login',
-    //             templateUrl: 'login.html',
-    //             controller: 'LoginCtrl'
-    //         });
-    // }
+    
 
     config.$inject = injections;
 
