@@ -40,6 +40,10 @@ growl-notifications growl-notification {
     margin: 0 !important;
 }
 
+select {
+    display: inline !important;
+}
 
-
-
+.table-btn {
+    color: #26a69a !important;
+}
