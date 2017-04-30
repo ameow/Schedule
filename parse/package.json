@@ -1,0 +1,13 @@
+{
+  "name": "schedule-creator",
+  "version": "1.0.0",
+  "description": "this web-application creates schedules online",
+  "main": "back-end/app.js",
+  "author": "anastasiameoww@gmail.com",
+  "dependencies": {
+    "node-xlsx": "^0.7.4",
+    "xlsx": "^0.8.1"
+  },
+  "engine": "node 0.6.9",
+  "devDependencies": {}
+}

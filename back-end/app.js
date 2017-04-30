@@ -8,10 +8,12 @@ let express = require('express'),
     mongoose = require('mongoose'),
     SessionStore = require('connect-mongo')(session),
     checkAuthentication = require('./routes/middleware/checkAuthentication'),
-    upload = require('./routes/middleware/upload');
+    upload = require('./routes/middleware/upload'),
+    readXLSX = require('./routes/middleware/readExcel');
 
 let login = require('./routes/login');
 let signUp = require('./routes/sign-up');
+let main = require('./routes/main');
 
 let app = express();
 app.set('port', 1488);
@@ -39,17 +41,17 @@ app.use(session({
 
 app.use('/login', login);
 app.use('/sign-up', signUp);
+app.use('/main', main);
 
-app.use('/main', checkAuthentication, function(req, res, next){
-    req.session.numberOfVisits = req.session.numberOfVisits + 1 || 1;
-    res.send('Visits: ' + req.session.numberOfVisits);
-});
+// app.use('/main', checkAuthentication, function(req, res, next){
+//     req.session.numberOfVisits = req.session.numberOfVisits + 1 || 1;
+//     res.send('Visits: ' + req.session.numberOfVisits);
+// });
 
-app.post('/file', upload.single('file'),  function (req, res, next) {
-    console.log('req body: ', req.body);
-    console.log('req file: ', req.file);
-    res.sendStatus(202);
-});
+// app.post('/file', upload.single('file'), readXLSX, function (req, res, next) {
+//     console.log('req body: ', req.xlsx);
+//     res.sendStatus(202);
+// });
 
 app.use(function (req, res, next) {
     let err = new Error('Not Found');

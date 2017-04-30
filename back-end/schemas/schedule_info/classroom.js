@@ -1,4 +1,4 @@
-let mongoose = require('../models/mongoose');
+let mongoose = require('../../models/mongoose');
 
 let classroom = new mongoose.Schema({
     number: {

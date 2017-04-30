@@ -1,9 +1,9 @@
 'use strict';
 
-let User = require('../models/user');
+let user = require('../models/user');
 
 function authentication(username, password) {
-    return User.findOne({username: username})
+    return user.get(username)
         .then(user => {
             if(user){
                 return user.checkPassword(password) ? user._id : null;
@@ -13,7 +13,7 @@ function authentication(username, password) {
 }
 
 function save(username, password) {
-    return User.findOne({username: username})
+    return user.get(username)
         .then(user => {
             if (user) return false;
 

@@ -1,4 +1,4 @@
-let mongoose = require('../models/mongoose');
+let mongoose = require('../../models/mongoose');
 
 let curriculum = new mongoose.Schema({
     subject: {

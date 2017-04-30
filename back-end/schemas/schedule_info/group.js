@@ -1,4 +1,4 @@
-let mongoose = require('../models/mongoose');
+let mongoose = require('../../models/mongoose');
 
 let group = new mongoose.Schema({
     course: {

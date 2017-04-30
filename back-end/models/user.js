@@ -1,10 +1,16 @@
 let mongoose = require('./mongoose');
 let userSchema = require('../schemas/user');
 
-let user = mongoose.model('User',  userSchema);
+let userModel = mongoose.model('User',  userSchema);
+let model = {
+    get:  function (username) {
+        return userModel.findOne({username: username});
+    },
 
-// user.findByName = function (username) {
-//     return user.findOne({username: username});
-// };
+    hashPassword: function () {
+        return userModel.encryptPassword()
+    }
 
-module.exports = user;
+};
+
+module.exports = model;
