@@ -1,5 +1,20 @@
+// 'use strict';
+//
+// (function () {
+//     angular.module('login', []);
+// })();
+//
 'use strict';
 
 (function () {
-    angular.module('login', []);
+    var injections = [
+        //'$stateProvider'
+    ];
+
+    
+
+    config.$inject = injections;
+
+    angular.module('app')
+        .config(config);
 })();

@@ -1,39 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Schedule</title>
-    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../style.css">
-</head>
+<growl-notification ttl="2000">
+    Hello world
+</growl-notification>
 
-<body class="login" ng-app="login">
-
-<article class="container">
-    <div class="row panel-row" ng-controller="LoginCtrl">
-        <div class="container-fluid"></div>
-        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-            <div class="panel container-fluid">
-                <div class="logo"> SCHEDULE CREATOR</div>
-                <form role="form" name="loginForm">
-                    <input class="form-input" type="email" placeholder="Email" ng-model="user.email" ng-mousedown="error = false;" required>
-                    <input class="form-input" type="password" placeholder="Password" ng-model="user.password" ng-mousedown="error = false;" required>
-                    <div class="notification" ng-if="error"> * Please check that you have entered your login and password correctly. </div>
-                    <button class="form-btn sign-up-btn" ng-click="signUp()"> Sign up</button>
-                    <button ng-disabled="loginForm.$invalid" class="form-btn log-in-btn" ng-click="login()">
-                        Log in
-                    </button>
-                </form>
-
+<div class="row">
+    <form class="col s12">
+        <div class="row">
+            <div class="input-field offset-m3 offset-l4 col s12 m6 l4">
+                <input id="login" type="text" class="validate" ng-model="user.login">
+                <label for="login">Email</label>
             </div>
         </div>
-    </div>
-</article>
-
-
-<script type="text/javascript" src="../../bower_components/angular/angular.min.js"></script>
-<script type="text/javascript" src="login.js"></script>
-<script type="text/javascript" src="login.controller.js"></script>
-<script type="text/javascript" src="login.service.js"></script>
-</body>
-</html>
+        <div class="row">
+            <div class="input-field offset-m3 offset-l4 col s12 m6 l4 ">
+                <input id="password" type="password" class="validate" ng-model="user.password">
+                <label for="password">Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <button type='submit' class='offset-m3 offset-l4 col s12 m6 l4 waves-effect waves-light btn' ng-click="login()">Login</button>
+        </div>
+    </form>
+</div>

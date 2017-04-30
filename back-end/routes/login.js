@@ -7,7 +7,7 @@ let router = express.Router();
 let user = require('../controllers/user');
 
 router.get('/', function (req, res, next) {
-    res.sendFile(path.resolve(__dirname, '../../front-end/login/login.html'));
+    res.sendFile(path.resolve(__dirname, '../../front-end/index.html'));
 });
 
 router.post('/', function (req, res, next) {

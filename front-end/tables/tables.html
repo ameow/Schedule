@@ -1,0 +1,96 @@
+<div class="row">
+    <div class="offset-l2 col s12 l6">
+        <ul class="collapsible popout" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header"><i class="fa fa-users fa-1x"
+                                                   aria-hidden="true"></i>Groups
+                </div>
+                <div class="collapsible-body">
+                    <table class="bordered centered responsive-table">
+                        <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Specialty</th>
+                            <th>Group</th>
+                            <th>Students number</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="obj in modalData">
+                            <td contenteditable="true">
+                                {{obj.course}}
+                            </td>
+                            <td contenteditable="true">
+                                {{obj.specialty}}
+                            </td>
+                            <td contenteditable="true">
+                                {{obj.group}}
+                            </td>
+                            <td contenteditable="true">
+                                {{obj.students}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <div ng-switch="isEdited">
+                            <div ng-switch-when="true">
+                                <button class="waves-effect waves-teal btn-flat table-btn" ng-click="addRow()">
+                                    <span>Add column</span>
+                                </button>
+                                <button class="btn-floating btn waves-effect waves-light green"
+                                        ng-click="saveEdit()"><i class="material-icons">done</i>
+                                </button>
+                                <button class="btn-floating btn waves-effect waves-light red"
+                                        ng-click="removeEdit()"><i class="material-icons">clear</i>
+                                </button>
+                            </div>
+                            <div ng-switch-when="false">
+                                <button class="waves-effect waves-teal btn-flat table-btn"
+                                        ng-click="startEdit()"><span>Edit</span>
+                                </button>
+                                <button class="waves-effect waves-teal btn-flat table-btn"><span>Download</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">place</i>Groups</div>
+                <div class="collapsible-body"><span>Text.</span></div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">whatshot</i>Groups</div>
+                <div class="collapsible-body"><span>Table.</span></div>
+            </li>
+        </ul>
+    </div>
+    <div class="col s12 l3">
+        <form action="#">
+            <div class="row">
+                <div class="input-field">
+                    <select>
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="1">Groups</option>
+                        <option value="2">Classes</option>
+                        <option value="3">Options</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>File</span>
+                        <input type="file" accept=".xls,.xlsx">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button type='submit' class='col s12 waves-effect waves-light btn' ng-click="sendFile()">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>

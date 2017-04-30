@@ -6,7 +6,7 @@
     ];
 
     function LoginService($http) {
-
+        
         this.login = function (email, password) {
             return $http.post('/login/', {email: email, password: password}).then(function (response) {
                 return response.data
@@ -19,7 +19,7 @@
     
     LoginService.$inject = injections;
 
-    angular.module('login')
+    angular.module('app')
         .service('LoginService', LoginService);
 })();
 
