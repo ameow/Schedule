@@ -2,7 +2,9 @@
 
 let fs = require('fs');
 let node_xlsx = require('node-xlsx');
-let scheduleModel = require('../back-end/schemas/schedule/schedule');
+
+let RoomDB = require('./db/roomDB');
+let TypeDB = require('./db/typeDB');
 
 fs.readFile(__dirname + '/1_course.xlsx', function (err, data) {
     if (err) {
@@ -49,7 +51,7 @@ fs.readFile(__dirname + '/1_course.xlsx', function (err, data) {
         LECTURE: 29
     };
 
-    for(let dayName in DAYS) {
+    for (let dayName in DAYS) {
         let day = {};
         day = parse(info, DAYS[dayName], FIRST.START, 4, FIRST.GROUPS, FIRST.LECTURE, 8);
         addDay(schedule, day);
@@ -61,35 +63,14 @@ fs.readFile(__dirname + '/1_course.xlsx', function (err, data) {
         addDay(schedule, day);
     }
 
-    let newSchedule = new scheduleModel(schedule);
-    newSchedule.save()
-        .then(
-            (info) => {
-                console.log("success!!!");
-                scheduleModel.find()
-                    .then(
-                        (schedule) => {
-                            let str1 = JSON.stringify(schedule, null, 4);
-                            fs.writeFile('resultMongoDB.txt', str1, (err) => {
-                                if (err) throw err;
-                                console.log('The file "resultMongoDB.txt" has been saved!');
-                            });
-
-                            let str2 = JSON.stringify(schedule, null, 4);
-                            fs.writeFile('result.txt', str2, (err) => {
-                                if (err) throw err;
-                                console.log('The file "result.txt" has been saved!');
-                            });
-                        },
-                        (error) => {
-                            console.log(error);
-                        }
-                    )
-
-            },
-            (error) => {
-                console.log(error);
-            });
+    let str = JSON.stringify(schedule, null, 4);
+    fs.writeFile('result.txt', str, (err) => {
+        if (err) {
+            console.log("Write file error!");
+            return;
+        }
+        console.log('The file "result.txt" has been saved!');
+    });
 });
 
 function parse(info, START_X, START_Y, CLASSES_COUNT, GROUPS_COUNT, LECTURE_AUDITORY, GROUP_X) {
@@ -102,8 +83,8 @@ function parse(info, START_X, START_Y, CLASSES_COUNT, GROUPS_COUNT, LECTURE_AUDI
         tmp.time = info[classes][1];
         tmp.groups = [];
         let lecture = true;
-        for(let i = START_Y + 1; i < START_Y + GROUPS_COUNT * 2; i++){
-            if(info[classes][i] !== undefined){
+        for (let i = START_Y + 1; i < START_Y + GROUPS_COUNT * 2; i++) {
+            if (info[classes][i] !== undefined) {
                 lecture = false;
             }
         }
@@ -115,7 +96,7 @@ function parse(info, START_X, START_Y, CLASSES_COUNT, GROUPS_COUNT, LECTURE_AUDI
                 tmp.groups.push(group);
             } else {
                 if (info[classes][groups] === undefined) {
-                    if(info[classes][groups + 1] !== undefined){
+                    if (info[classes][groups + 1] !== undefined) {
                         let group = getGroup(parseInt(info[GROUP_X][groups]), parseInt(info[4][0]),
                             info[classes][groups + 1], info[classes + 1][groups + 1], '2.2',
                             info[classes + 3][groups + 1]);
@@ -129,13 +110,13 @@ function parse(info, START_X, START_Y, CLASSES_COUNT, GROUPS_COUNT, LECTURE_AUDI
                         info[classes + 3][groups]);
                     tmp.groups.push(group);
                 } else {
-                    if(info[classes + 1][groups] !== undefined) {
+                    if (info[classes + 1][groups] !== undefined) {
                         let group = getGroup(parseInt(info[GROUP_X][groups]), parseInt(info[4][0]),
                             info[classes][groups], info[classes + 1][groups], '2.1',
                             info[classes + 3][groups]);
                         tmp.groups.push(group);
                     }
-                    if(info[classes][groups + 1] === undefined) {
+                    if (info[classes][groups + 1] === undefined) {
                         let group = getGroup(parseInt(info[GROUP_X][groups]), parseInt(info[4][0]),
                             info[classes][groups], info[classes + 1][groups + 1], '2.2',
                             info[classes + 3][groups + 1]);
@@ -163,7 +144,12 @@ function parse(info, START_X, START_Y, CLASSES_COUNT, GROUPS_COUNT, LECTURE_AUDI
         group.subject = arguments[2].trim();
         group.professor = arguments[3];
         group.type = arguments[4];
+        TypeDB.insert(group.type);
         group.class = arguments[5];
+        RoomDB.insert({
+            number: group.class,
+            type: group.type,
+        });
         return group;
     }
 }
@@ -177,7 +163,7 @@ function addDay(schedule, day) {
     let flag = true;
     schedule.days.forEach((dayItem) => {
         if (dayItem.name === day.name) {
-            for(let i = 0; i < day.classes.length; i++) {
+            for (let i = 0; i < day.classes.length; i++) {
                 let newClassItem = day.classes[i];
                 dayItem.classes.forEach((classItem) => {
                     if (newClassItem.time === classItem.time) {
