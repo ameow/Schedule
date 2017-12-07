@@ -49,24 +49,35 @@ CREATE TABLE IF NOT EXISTS `classes` (
 
 -- Dumping structure for table schedule.course
 CREATE TABLE IF NOT EXISTS `course` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `number` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `number_UNIQUE` (`number`)
+) ENGINE=InnoDB AUTO_INCREMENT=1192 DEFAULT CHARSET=utf8;
 
--- Dumping data for table schedule.course: ~0 rows (approximately)
+-- Dumping data for table schedule.course: ~1 rows (approximately)
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
+INSERT INTO `course` (`id`, `number`) VALUES
+	(1, 1);
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 
 -- Dumping structure for table schedule.day
 CREATE TABLE IF NOT EXISTS `day` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `name` varchar(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
 
--- Dumping data for table schedule.day: ~0 rows (approximately)
+-- Dumping data for table schedule.day: ~6 rows (approximately)
 /*!40000 ALTER TABLE `day` DISABLE KEYS */;
+INSERT INTO `day` (`id`, `name`) VALUES
+	(5, 'вторник'),
+	(1, 'понедельник'),
+	(17, 'пятница'),
+	(9, 'среда'),
+	(21, 'суббота'),
+	(13, 'четверг');
 /*!40000 ALTER TABLE `day` ENABLE KEYS */;
 
 -- Dumping structure for table schedule.group
@@ -78,8 +89,8 @@ CREATE TABLE IF NOT EXISTS `group` (
   `students` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `group_to_course_idx` (`course_id`),
   KEY `group_to_speciality_idx` (`speciality_id`),
+  KEY `group_to_course_idx` (`course_id`),
   CONSTRAINT `group_to_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `group_to_speciality` FOREIGN KEY (`speciality_id`) REFERENCES `speciality` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -105,12 +116,56 @@ CREATE TABLE IF NOT EXISTS `room` (
   `number` char(10) NOT NULL,
   `type_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `number_UNIQUE` (`number`),
   KEY `room_to_type_idx` (`type_id`),
   CONSTRAINT `room_to_type` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=357 DEFAULT CHARSET=utf8;
 
--- Dumping data for table schedule.room: ~0 rows (approximately)
+-- Dumping data for table schedule.room: ~42 rows (approximately)
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
+INSERT INTO `room` (`id`, `number`, `type_id`) VALUES
+	(1, '521', 1),
+	(5, '255', 5),
+	(6, '256', 6),
+	(7, '240', 7),
+	(8, 'м 506', 5),
+	(9, 'м 604', 6),
+	(10, '517', 5),
+	(11, '255-б', 6),
+	(14, '248-а', 5),
+	(15, '520', 6),
+	(16, '255 а', 5),
+	(17, '253', 6),
+	(20, 'м 505', 5),
+	(21, 'м 507', 6),
+	(23, '518', 7),
+	(25, '519', 6),
+	(28, 'м 508', 6),
+	(29, '248', 5),
+	(30, '249', 6),
+	(33, '257', 7),
+	(34, '255-а', 5),
+	(43, '607', 1),
+	(46, '605', 1),
+	(49, '250', 7),
+	(50, '234', 7),
+	(51, '513', 5),
+	(52, '522', 6),
+	(56, '314', 5),
+	(60, 'м 314', 5),
+	(73, '338', 5),
+	(74, '345', 6),
+	(81, '300-а', 5),
+	(82, '300-б', 6),
+	(85, '334', 5),
+	(86, '334’', 6),
+	(120, 'м  604', 6),
+	(125, '600-г', 5),
+	(126, '600-в', 6),
+	(130, 'м 608', 6),
+	(139, '600-б', 7),
+	(213, ' м 608', 6),
+	(253, 'м 314/520', 6);
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 
 -- Dumping structure for table schedule.speciality
@@ -127,12 +182,57 @@ CREATE TABLE IF NOT EXISTS `speciality` (
 -- Dumping structure for table schedule.subject
 CREATE TABLE IF NOT EXISTS `subject` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` char(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `name` char(80) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3872 DEFAULT CHARSET=utf8;
 
--- Dumping data for table schedule.subject: ~0 rows (approximately)
+-- Dumping data for table schedule.subject: ~43 rows (approximately)
 /*!40000 ALTER TABLE `subject` DISABLE KEYS */;
+INSERT INTO `subject` (`id`, `name`) VALUES
+	(1885, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'),
+	(1877, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'),
+	(1864, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'),
+	(1772, 'А и ТЧ'),
+	(1773, 'А иТЧ'),
+	(1702, 'Алгебра и теория чисел'),
+	(1699, 'Англ.  яз.'),
+	(1503, 'Англ. яз'),
+	(1860, 'Англ. яз нач. (Ф)'),
+	(1504, 'Англ. яз.'),
+	(1798, 'Англ. яз. (Ф)'),
+	(1605, 'Англ. яз. (ф) до'),
+	(1876, 'Англ. Яз. Нач. (Ф)'),
+	(1875, 'Англ. Яз.(ф)'),
+	(1598, 'Англ.яз'),
+	(1545, 'Англ.яз.'),
+	(1602, 'Англ.яз.(ф)'),
+	(1632, 'Бел. Яз'),
+	(1635, 'Бел. Яз.'),
+	(1627, 'Введение в IT (до 18.04)'),
+	(1629, 'Введение в IT (до18.04)'),
+	(1491, 'ГА'),
+	(1587, 'ГА (ф)'),
+	(1511, 'ГА(ф)'),
+	(1490, 'Геометрия и алгебра'),
+	(1592, 'Дискретная математика и Математическая логика'),
+	(1695, 'ДМ и МЛ'),
+	(1522, 'ДМиМЛ'),
+	(1499, 'МА'),
+	(1676, 'МА (ф)'),
+	(1512, 'МА(Ф)'),
+	(1535, 'Математический анализ'),
+	(1513, 'Прогр.'),
+	(1693, 'Прогр. (1/2)'),
+	(1516, 'Прогр.(1/2)'),
+	(1551, 'Программирование'),
+	(1588, 'Программирование (1/2)'),
+	(1837, 'ТГ'),
+	(1835, 'Теория графов'),
+	(1492, 'УП'),
+	(1711, 'УП (Л)'),
+	(1747, 'Учебная практика'),
+	(1532, 'Физическая культура');
 /*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 
 -- Dumping structure for table schedule.time
@@ -149,13 +249,19 @@ CREATE TABLE IF NOT EXISTS `time` (
 
 -- Dumping structure for table schedule.type
 CREATE TABLE IF NOT EXISTS `type` (
-  `id` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=1589 DEFAULT CHARSET=utf8;
 
--- Dumping data for table schedule.type: ~0 rows (approximately)
+-- Dumping data for table schedule.type: ~4 rows (approximately)
 /*!40000 ALTER TABLE `type` DISABLE KEYS */;
+INSERT INTO `type` (`id`, `name`) VALUES
+	(1, '0'),
+	(7, '1'),
+	(5, '2.1'),
+	(6, '2.2');
 /*!40000 ALTER TABLE `type` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
