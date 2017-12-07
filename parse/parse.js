@@ -5,6 +5,9 @@ let node_xlsx = require('node-xlsx');
 
 let RoomDB = require('./db/roomDB');
 let TypeDB = require('./db/typeDB');
+let SubjectDB = require('./db/subjectDB');
+let CourseDB = require('./db/courseDB');
+let DayDB = require('./db/dayDB');
 
 fs.readFile(__dirname + '/1_course.xlsx', function (err, data) {
     if (err) {
@@ -76,6 +79,7 @@ fs.readFile(__dirname + '/1_course.xlsx', function (err, data) {
 function parse(info, START_X, START_Y, CLASSES_COUNT, GROUPS_COUNT, LECTURE_AUDITORY, GROUP_X) {
     let day = {};
     day.name = info[START_X][0];
+    DayDB.insert(day.name);
     day.classes = [];
     for (let classesCount = 0; classesCount < CLASSES_COUNT; classesCount++) {
         let classes = START_X + classesCount * 4;
@@ -141,7 +145,9 @@ function parse(info, START_X, START_Y, CLASSES_COUNT, GROUPS_COUNT, LECTURE_AUDI
         let group = {};
         group.number = arguments[0];
         group.course = arguments[1];
+        CourseDB.insert(group.course);
         group.subject = arguments[2].trim();
+        SubjectDB.insert(group.subject);
         group.professor = arguments[3];
         group.type = arguments[4];
         TypeDB.insert(group.type);
@@ -185,7 +191,6 @@ function addDay(schedule, day) {
     if (flag) {
         schedule.days.push(day);
     }
-
 
     function pushGroups(groups, newGroups) {
         newGroups.forEach((group) => {

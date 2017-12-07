@@ -3,8 +3,8 @@ let mysql = require('mysql');
 let pool = mysql.createPool({
     connectionLimit: 10,
     host: 'localhost',
-    user: 'schedule',
-    password: 'schedule',
+    user: 'root',
+    password: 'school11',
     database: 'schedule',
 });
 

@@ -1,6 +1,6 @@
-let DB = require('db');
+let DB = require('./db');
 
-const insertSQL = 'INSERT INTO room (number, type_id) VALUES (?, SELECT id FROM type WHERE name=?)';
+const insertSQL = 'INSERT INTO room (number, type_id) VALUES (?, (SELECT id FROM type WHERE name=?))';
 
 module.exports = class RoomDB extends DB {
 
