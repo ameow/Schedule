@@ -8,6 +8,9 @@ let TypeDB = require('./db/typeDB');
 let SubjectDB = require('./db/subjectDB');
 let CourseDB = require('./db/courseDB');
 let DayDB = require('./db/dayDB');
+let LecturerDB = require('./db/lecturerDB');
+let GroupDB = require('./db/groupDB');
+let ClassesDB = require('./db/classesDB');
 
 fs.readFile(__dirname + '/1_course.xlsx', function (err, data) {
     if (err) {
@@ -76,15 +79,21 @@ fs.readFile(__dirname + '/1_course.xlsx', function (err, data) {
     });
 });
 
+
+
+ let globalTime;
+ let globalDay;
 function parse(info, START_X, START_Y, CLASSES_COUNT, GROUPS_COUNT, LECTURE_AUDITORY, GROUP_X) {
     let day = {};
     day.name = info[START_X][0];
+    globalDay = day.name;
     DayDB.insert(day.name);
     day.classes = [];
     for (let classesCount = 0; classesCount < CLASSES_COUNT; classesCount++) {
         let classes = START_X + classesCount * 4;
         let tmp = {};
         tmp.time = info[classes][1];
+        globalTime = tmp.time;
         tmp.groups = [];
         let lecture = true;
         for (let i = START_Y + 1; i < START_Y + GROUPS_COUNT * 2; i++) {
@@ -149,6 +158,7 @@ function parse(info, START_X, START_Y, CLASSES_COUNT, GROUPS_COUNT, LECTURE_AUDI
         group.subject = arguments[2].trim();
         SubjectDB.insert(group.subject);
         group.professor = arguments[3];
+        LecturerDB.insert(group.professor);
         group.type = arguments[4];
         TypeDB.insert(group.type);
         group.class = arguments[5];
@@ -156,6 +166,33 @@ function parse(info, START_X, START_Y, CLASSES_COUNT, GROUPS_COUNT, LECTURE_AUDI
             number: group.class,
             type: group.type,
         });
+        GroupDB.insert({
+            speciality: 'ФПМИ',
+            course: group.course,
+            number: group.number,
+            students: 30,
+        });
+
+        let start = globalTime.split('-')[0].replace('.', ':');
+        let end = globalTime.split('-')[1].replace('.', ':');
+
+        console.log(group.lecturer, group.room);
+
+        ClassesDB.insert({
+            day: globalDay,
+            startTime: start,
+            endTime: end,
+            group: group.number,
+            course: group.course,
+            speciality: 'ФПМИ',
+            lecturer: group.professor,
+            room: group.class,
+            subject: group.subject,
+            type: group.type,
+        });
+
+
+
         return group;
     }
 }
@@ -196,6 +233,5 @@ function addDay(schedule, day) {
         newGroups.forEach((group) => {
             groups.push(group);
         })
-
     }
 }
