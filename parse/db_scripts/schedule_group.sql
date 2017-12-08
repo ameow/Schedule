@@ -1,0 +1,13 @@
+INSERT INTO schedule.`group` (id, course_id, speciality_id, number, students) VALUES (401, 1, 1, 1, 30);
+INSERT INTO schedule.`group` (id, course_id, speciality_id, number, students) VALUES (402, 1, 1, 2, 30);
+INSERT INTO schedule.`group` (id, course_id, speciality_id, number, students) VALUES (403, 1, 1, 3, 30);
+INSERT INTO schedule.`group` (id, course_id, speciality_id, number, students) VALUES (404, 1, 1, 4, 30);
+INSERT INTO schedule.`group` (id, course_id, speciality_id, number, students) VALUES (424, 1, 1, 5, 30);
+INSERT INTO schedule.`group` (id, course_id, speciality_id, number, students) VALUES (425, 1, 1, 6, 30);
+INSERT INTO schedule.`group` (id, course_id, speciality_id, number, students) VALUES (427, 1, 1, 7, 30);
+INSERT INTO schedule.`group` (id, course_id, speciality_id, number, students) VALUES (429, 1, 1, 8, 30);
+INSERT INTO schedule.`group` (id, course_id, speciality_id, number, students) VALUES (447, 1, 1, 9, 30);
+INSERT INTO schedule.`group` (id, course_id, speciality_id, number, students) VALUES (448, 1, 1, 10, 30);
+INSERT INTO schedule.`group` (id, course_id, speciality_id, number, students) VALUES (449, 1, 1, 11, 30);
+INSERT INTO schedule.`group` (id, course_id, speciality_id, number, students) VALUES (462, 1, 1, 12, 30);
+INSERT INTO schedule.`group` (id, course_id, speciality_id, number, students) VALUES (463, 1, 1, 13, 30);
